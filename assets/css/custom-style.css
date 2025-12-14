@@ -1,0 +1,219 @@
+/* Modern Blue-White-Black Theme for Inventaris Dispenduk */
+
+:root {
+    --primary-blue: #1a75ff;
+    --dark-blue: #004ee5;
+    --light-blue: #e6f0ff;
+    --accent-blue: #00264d;
+    --pure-white: #ffffff;
+    --off-white: #f8f9fc;
+    --light-gray: #f0f2f8;
+    --dark-gray: #2c3e50;
+    --black: #1a1a1a;
+}
+
+/* Sidebar Improvements */
+.sidebar {
+    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--dark-blue) 100%);
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(0, 0, 0, 0.15);
+}
+
+.sidebar-brand {
+    padding: 1.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-brand-text {
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.nav-item .nav-link {
+    padding: 1rem 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border-radius: 0.35rem;
+    margin: 0.2rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-item .nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.nav-item.active .nav-link {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Topbar Improvements */
+.topbar {
+    background: linear-gradient(to right, #ffffff, #f8f9fc);
+    border-bottom: 1px solid rgba(78, 115, 223, 0.1);
+}
+
+.topbar .nav-item .nav-link {
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+}
+
+.topbar-divider {
+    border-right: 2px solid rgba(78, 115, 223, 0.1);
+    margin: 0 1rem;
+}
+
+/* Content Area */
+.container-fluid {
+    padding: 1.5rem 2rem;
+}
+
+.card {
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.15);
+}
+
+.card-header {
+    background: linear-gradient(to right, #f8f9fc, #ffffff);
+    border-bottom: 1px solid rgba(78, 115, 223, 0.1);
+    padding: 1.25rem 1.5rem;
+}
+
+.card-title {
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0;
+}
+
+/* Tables */
+.table thead th {
+    background: #f8f9fc;
+    border-bottom: 2px solid rgba(78, 115, 223, 0.1);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+}
+
+/* Buttons */
+.btn {
+    font-weight: 600;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(to right, #4e73df, #224abe);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(to right, #224abe, #1a3a94);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(78, 115, 223, 0.3);
+}
+
+/* Footer */
+.sticky-footer {
+    padding: 2rem 0;
+    background: linear-gradient(to right, #ffffff, #f8f9fc);
+    border-top: 1px solid rgba(78, 115, 223, 0.1);
+}
+
+.copyright {
+    font-weight: 600;
+    color: #5a5c69;
+}
+
+/* Form Controls */
+.form-control {
+    border-radius: 0.5rem;
+    border: 2px solid #e8f0fe;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #4e73df;
+    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+}
+
+/* Dropdown Menus */
+.dropdown-menu {
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.15);
+}
+
+.dropdown-item {
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background: #f8f9fc;
+    transform: translateX(5px);
+}
+
+/* Notifications and Alerts */
+.alert {
+    border: none;
+    border-radius: 0.75rem;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+}
+
+/* Dashboard Cards */
+.h-100 {
+    height: 100% !important;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.text-xs {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.progress {
+    height: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: #eaecf4;
+    margin: 0.5rem 0;
+}
+
+/* Icons */
+.fa-fw {
+    margin-right: 0.5rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 1rem;
+    }
+    
+    .sidebar {
+        padding-top: 1rem;
+    }
+    
+    .card {
+        margin-bottom: 1rem;
+    }
+}
