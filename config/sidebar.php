@@ -1,13 +1,18 @@
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-    <!-- Sidebar - Brand -->
+    <!-- Sidebar - Brand - HILANG DI BERANDA -->
+    <?php if(!isset($home)): ?>
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="?#">
         <div class="sidebar-brand-icon">
             <img src="<?=base_url();?>assets/img/dispenduk.png" alt="Logo" style="width: 40px; height: auto;">
         </div>
         <div class="sidebar-brand-text mx-3">INVENTARIS</div>
     </a>
+    <?php else: ?>
+    <!-- Spacer untuk beranda -->
+    <div style="height: 70px;"></div>
+    <?php endif; ?>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
@@ -26,7 +31,7 @@
     <div class="sidebar-heading">
         Menu
     </div>
-    <?php if($_SESSION['level']=='admin'):?>
+    
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item <?=isset($master)?'active':'';?>">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#master" aria-expanded="true"
@@ -40,7 +45,9 @@
                 <a class="collapse-item <?=isset($merek)?'active':'';?>" href="?merek">Merek</a>
                 <a class="collapse-item <?=isset($kategori)?'active':'';?>" href="?kategori">Kategori</a>
                 <a class="collapse-item <?=isset($barang)?'active':'';?>" href="?barang">Barang</a>
+                <?php if($_SESSION['level']=='admin'):?>
                 <a class="collapse-item <?=isset($pengguna)?'active':'';?>" href="?pengguna">Pengguna</a>
+                <?php endif; ?>
             </div>
         </div>
     </li>
@@ -79,7 +86,6 @@
             </div>
         </div>
     </li>
-    <?php endif; ?>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

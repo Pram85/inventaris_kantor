@@ -1,4 +1,4 @@
-<?php hakAkses(['admin']) ?>
+<?php hakAkses(['admin','staff']) ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -8,6 +8,7 @@
     </div>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
+        <?php if($_SESSION['level']=='admin'):?>
         <div class="card-header py-3">
             <a href="#" class="btn btn-primary btn-icon-split btn-sm" data-toggle="modal" data-target="#merekModal">
                 <span class="icon text-white-50">
@@ -16,6 +17,7 @@
                 <span class="text">Tambah</span>
             </a>
         </div>
+        <?php endif; ?>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -24,7 +26,9 @@
                             <th width="20">NO</th>
                             <th>NAMA MEREK</th>
                             <th>KETERANGAN</th>
+                            <?php if($_SESSION['level']=='admin'):?>
                             <th width="50">AKSI</th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,10 +41,12 @@
                             <td><?= $n++; ?></td>
                             <td><?= $row['nama_merek']; ?></td>
                             <td><?= $row['keterangan']; ?></td>
+                            <?php if($_SESSION['level']=='admin'):?>
                             <td>
                                 <a href="<?=base_url();?>/process/merek.php?act=<?=encrypt('delete');?>&id=<?=encrypt($row['idmerek']);?>"
                                     class="btn btn-sm btn-circle btn-danger btn-hapus"><i class="fas fa-trash"></i></a>
                             </td>
+                            <?php endif; ?>
                         </tr>
                         <?php endwhile; ?>
                     </tbody>

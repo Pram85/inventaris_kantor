@@ -1,4 +1,4 @@
-<?php hakAkses(['admin']); ?>
+<?php hakAkses(['admin','staff']); ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -9,12 +9,14 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
+            <?php if($_SESSION['level']=='admin'):?>
             <a href="#" class="btn btn-primary btn-icon-split btn-sm" data-toggle="modal" data-target="#barang_keluar">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
                 <span class="text">Tambah</span>
             </a>
+            <?php endif; ?>
             <a href="<?=base_url();?>process/cetak_barang_keluar.php" target="_blank"
                 class="btn btn-info btn-icon-split btn-sm float-right">
                 <span class="icon text-white-50">
@@ -87,7 +89,7 @@
                             <div class="form-group">
                                 <label for="barang_id">Nama Barang <span class="text-danger">*</span></label>
                                 <select name="barang_id" id="barang_id" class="form-control select2" style="width:100%;"
-                                    required>
+                                    required onchange="checkStok()">
                                     <option value="">-- Pilih Barang --</option>
                                     <?= list_barang(); ?>
                                 </select>
@@ -96,7 +98,15 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="jumlah">Jumlah<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control uang" id="jumlah" name="jumlah" required>
+                                <input type="number" class="form-control" id="jumlah" name="jumlah" min="1" required onkeyup="validateStok()" onchange="validateStok()">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="alert alert-info" id="stok-info" style="display:none;">
+                                <i class="fas fa-info-circle"></i> <strong>Stok Tersedia:</strong> <span id="stok-tersedia">0</span> unit
+                            </div>
+                            <div class="alert alert-warning" id="stok-warning" style="display:none;">
+                                <i class="fas fa-exclamation-triangle"></i> <span id="warning-text"></span>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -110,10 +120,92 @@
                     <hr class="sidebar-divider">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal"><i class="fas fa-times"></i>
                         Batal</button>
-                    <button class="btn btn-primary float-right" type="submit" name="tambah"><i class="fas fa-save"></i>
+                    <button class="btn btn-primary float-right" type="submit" name="tambah" id="btn-submit"><i class="fas fa-save"></i>
                         Tambah</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+// Data stok barang dari PHP
+var stokBarang = {};
+<?php
+$query_stok = mysqli_query($con, "SELECT idbarang, nama_barang, stok FROM barang");
+while($row_stok = mysqli_fetch_array($query_stok)){
+    echo "stokBarang[".$row_stok['idbarang']."] = ".$row_stok['stok'].";\n";
+}
+?>
+
+function checkStok(){
+    var barangId = $('#barang_id').val();
+    if(barangId && stokBarang[barangId] !== undefined){
+        var stok = stokBarang[barangId];
+        $('#stok-tersedia').text(stok);
+        $('#stok-info').show();
+        
+        // Reset jumlah dan warning
+        $('#jumlah').val('');
+        $('#stok-warning').hide();
+        $('#btn-submit').prop('disabled', false);
+        
+        // Set max jumlah
+        $('#jumlah').attr('max', stok);
+    }else{
+        $('#stok-info').hide();
+        $('#stok-warning').hide();
+    }
+}
+
+function validateStok(){
+    var barangId = $('#barang_id').val();
+    var jumlah = parseInt($('#jumlah').val()) || 0;
+    
+    if(barangId && stokBarang[barangId] !== undefined){
+        var stok = stokBarang[barangId];
+        
+        if(jumlah > stok){
+            $('#warning-text').html('<strong>PERINGATAN!</strong> Jumlah yang diminta (' + jumlah + ') melebihi stok tersedia (' + stok + '). Transaksi akan ditolak!');
+            $('#stok-warning').show();
+            $('#btn-submit').prop('disabled', true);
+            return false;
+        }else if(jumlah == stok){
+            $('#warning-text').html('<strong>INFO:</strong> Stok akan habis setelah transaksi ini.');
+            $('#stok-warning').removeClass('alert-warning').addClass('alert-info').show();
+            $('#btn-submit').prop('disabled', false);
+            return true;
+        }else if(jumlah < stok && jumlah > 0){
+            var sisa = stok - jumlah;
+            $('#warning-text').html('<strong>INFO:</strong> Sisa stok setelah transaksi: ' + sisa + ' unit');
+            $('#stok-warning').removeClass('alert-warning').addClass('alert-success').show();
+            $('#btn-submit').prop('disabled', false);
+            return true;
+        }else{
+            $('#stok-warning').hide();
+            $('#btn-submit').prop('disabled', false);
+        }
+    }
+    return true;
+}
+
+// Validasi sebelum submit
+$('form').on('submit', function(e){
+    var barangId = $('#barang_id').val();
+    var jumlah = parseInt($('#jumlah').val()) || 0;
+    
+    if(barangId && stokBarang[barangId] !== undefined){
+        var stok = stokBarang[barangId];
+        if(jumlah > stok){
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Stok Tidak Mencukupi!',
+                html: 'Jumlah yang diminta (<b>' + jumlah + '</b>) melebihi stok tersedia (<b>' + stok + '</b>).<br>Transaksi ditolak!',
+                confirmButtonText: 'OK'
+            });
+            return false;
+        }
+    }
+});
+</script>

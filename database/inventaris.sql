@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 -- Struktur dari tabel `barang`
 --
 
+DROP TABLE IF EXISTS `barang`;
 CREATE TABLE `barang` (
   `idbarang` int(11) NOT NULL,
   `merek_id` int(11) NOT NULL,
@@ -52,6 +53,7 @@ INSERT INTO `barang` (`idbarang`, `merek_id`, `kategori_id`, `nama_barang`, `ket
 -- Struktur dari tabel `barang_keluar`
 --
 
+DROP TABLE IF EXISTS `barang_keluar`;
 CREATE TABLE `barang_keluar` (
   `idbarang_keluar` int(11) NOT NULL,
   `barang_id` int(11) NOT NULL,
@@ -84,6 +86,7 @@ DELIMITER ;
 -- Struktur dari tabel `barang_masuk`
 --
 
+DROP TABLE IF EXISTS `barang_masuk`;
 CREATE TABLE `barang_masuk` (
   `idbarang_masuk` int(11) NOT NULL,
   `barang_id` int(11) NOT NULL,
@@ -118,6 +121,7 @@ DELIMITER ;
 -- Struktur dari tabel `kategori`
 --
 
+DROP TABLE IF EXISTS `kategori`;
 CREATE TABLE `kategori` (
   `idkategori` int(11) NOT NULL,
   `nama_kategori` varchar(128) NOT NULL,
@@ -138,6 +142,7 @@ INSERT INTO `kategori` (`idkategori`, `nama_kategori`, `keterangan`) VALUES
 -- Struktur dari tabel `merek`
 --
 
+DROP TABLE IF EXISTS `merek`;
 CREATE TABLE `merek` (
   `idmerek` int(11) NOT NULL,
   `nama_merek` varchar(128) NOT NULL,
@@ -161,13 +166,14 @@ INSERT INTO `merek` (`idmerek`, `nama_merek`, `keterangan`) VALUES
 -- Struktur dari tabel `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id_users` int(5) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `no_hp` varchar(15) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `level` enum('admin') NOT NULL
+  `level` enum('admin','staff') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -175,7 +181,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_users`, `nama`, `no_hp`, `username`, `password`, `level`) VALUES
-(3, 'Administrator', '081000111000', 'admin', '$2y$10$E33mbIeZc665JZiGOIwCMunuLcI.YnlIzMvGoqgPWflEykvFGFTAK', 'admin');
+(3, 'Administrator', '081000111000', 'admin', '$2y$10$mInYDCtFcaoYdi1UqABTfeMl0SmA00Ye8sQLzG/pNDwIcGCEtKRT.', 'admin'),
+(4, 'Staff Gudang', '081000222000', 'staff', '$2y$10$5jgKJz8GjbrV5U03j5BsN.T5nqoA8VHLUQH05RquIjogiTcMNIVVq', 'staff');
 
 --
 -- Indexes for dumped tables

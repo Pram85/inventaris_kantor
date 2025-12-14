@@ -1,4 +1,4 @@
-<?php hakAkses(['admin']); ?>
+<?php hakAkses(['admin','staff']); ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -9,12 +9,14 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
+            <?php if($_SESSION['level']=='admin'):?>
             <a href="#" class="btn btn-primary btn-icon-split btn-sm" data-toggle="modal" data-target="#barang_masuk">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
                 <span class="text">Tambah</span>
             </a>
+            <?php endif; ?>
             <a href="<?=base_url();?>process/cetak_barang_masuk.php" target="_blank"
                 class="btn btn-info btn-icon-split btn-sm float-right">
                 <span class="icon text-white-50">
@@ -96,7 +98,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="jumlah">Jumlah<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control uang" id="jumlah" name="jumlah" required>
+                                <input type="number" class="form-control" id="jumlah" name="jumlah" min="1" required>
                             </div>
                         </div>
                         <div class="col-md-12">
