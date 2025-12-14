@@ -7,7 +7,7 @@ if(isset($_POST['tambah'])){
     $username = $_POST['username'];
     $nama = $_POST['nama'];
     $no_hp = $_POST['no_hp'];
-    $level = 'admin';
+    $level = $_POST['level'];
     $password = password_hash($_POST['password'],PASSWORD_DEFAULT);
 
     $cek = mysqli_query($con,"SELECT * FROM users WHERE username='$username'") or die(mysqli_error($con));
@@ -30,12 +30,12 @@ if(isset($_POST['ubah'])){
     $nama = $_POST['nama'];
     $no_hp = $_POST['no_hp'];
     $password = $_POST['password'];
-    // $level = $_POST['level'];
+    $level = $_POST['level'];
 
     if($password!=""){
-        $update = mysqli_query($con,"UPDATE users SET nama='$nama', no_hp='$no_hp', password='".password_hash($password,PASSWORD_DEFAULT)."' WHERE id_users='$id'") or die (mysqli_error($con));
+        $update = mysqli_query($con,"UPDATE users SET nama='$nama', no_hp='$no_hp', password='".password_hash($password,PASSWORD_DEFAULT)."', level='$level' WHERE id_users='$id'") or die (mysqli_error($con));
     }else{
-        $update = mysqli_query($con,"UPDATE users SET nama='$nama', no_hp='$no_hp' WHERE id_users='$id'") or die (mysqli_error($con));
+        $update = mysqli_query($con,"UPDATE users SET nama='$nama', no_hp='$no_hp', level='$level' WHERE id_users='$id'") or die (mysqli_error($con));
     }
     if($update){
         $success = 'Berhasil mengubah data users';

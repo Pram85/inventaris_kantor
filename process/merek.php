@@ -2,6 +2,13 @@
 session_start();
 include ('../config/conn.php');
 include ('../config/function.php');
+
+// Validasi level user - hanya admin yang bisa tambah/hapus
+if(!isset($_SESSION['level']) || $_SESSION['level'] != 'admin'){
+    $_SESSION['error'] = 'Anda tidak memiliki akses untuk melakukan aksi ini!';
+    header('Location:../?merek');
+    exit();
+}
 //proses tambah
 if(isset($_POST['tambah'])){
     $nama_merek = $_POST['nama_merek'];
