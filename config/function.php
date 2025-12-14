@@ -4,7 +4,7 @@ function session_timeout(){
     if(isset($_SESSION['LAST_ACTIVITY'])&&(time()-$_SESSION['LAST_ACTIVITY']>1800)){
         session_unset();
         session_destroy();
-        header("Location:".$base_url."login.php");
+        header("Location:".base_url()."login.php");
     }$_SESSION['LAST_ACTIVITY']=time();
 }
 function delMask( $str ) {
@@ -88,5 +88,43 @@ function base_url(){
     $base_url.= "://".$_SERVER['HTTP_HOST'];
     $base_url.= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
     return $base_url;
+}
+
+// Fungsi untuk konversi bulan ke bahasa Indonesia
+function bulan_indonesia($bulan){
+    $bulan_array = [
+        '01' => 'Januari',
+        '02' => 'Februari',
+        '03' => 'Maret',
+        '04' => 'April',
+        '05' => 'Mei',
+        '06' => 'Juni',
+        '07' => 'Juli',
+        '08' => 'Agustus',
+        '09' => 'September',
+        '10' => 'Oktober',
+        '11' => 'November',
+        '12' => 'Desember'
+    ];
+    return $bulan_array[$bulan];
+}
+
+// Fungsi untuk konversi bulan ke angka romawi
+function bulan_romawi($bulan){
+    $romawi = [
+        '01' => 'I',
+        '02' => 'II',
+        '03' => 'III',
+        '04' => 'IV',
+        '05' => 'V',
+        '06' => 'VI',
+        '07' => 'VII',
+        '08' => 'VIII',
+        '09' => 'IX',
+        '10' => 'X',
+        '11' => 'XI',
+        '12' => 'XII'
+    ];
+    return $romawi[$bulan];
 }
 ?>

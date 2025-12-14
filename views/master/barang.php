@@ -1,4 +1,4 @@
-<?php hakAkses(['admin']); ?>
+<?php hakAkses(['admin','staff']); ?>
 <script>
 function submit(x) {
     if (x == 'add') {
@@ -6,13 +6,16 @@ function submit(x) {
         $('[name="merek_id"]').val("").trigger('change');
         $('[name="kategori_id"]').val("").trigger('change');
         $('[name="keterangan"]').val("");
+        $('[name="stok_awal"]').val(0);
         $('#barangModal .modal-title').html('Tambah Barang');
         $('[name="ubah"]').hide();
         $('[name="tambah"]').show();
+        $('#stok-awal-wrapper').show(); // Tampilkan field stok awal
     } else {
         $('#barangModal .modal-title').html('Edit Barang');
         $('[name="tambah"]').hide();
         $('[name="ubah"]').show();
+        $('#stok-awal-wrapper').hide(); // Sembunyikan field stok awal saat edit
 
         $.ajax({
             type: "POST",
@@ -41,6 +44,7 @@ function submit(x) {
     </div>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
+        <?php if($_SESSION['level']=='admin'):?>
         <div class="card-header py-3">
             <a href="#" class="btn btn-primary btn-icon-split btn-sm" data-toggle="modal" data-target="#barangModal"
                 onclick="submit('add')">
@@ -50,6 +54,7 @@ function submit(x) {
                 <span class="text">Tambah</span>
             </a>
         </div>
+        <?php endif; ?>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -61,7 +66,9 @@ function submit(x) {
                             <th>KATEGORI</th>
                             <th>KETERANGAN</th>
                             <th>STOK</th>
+                            <?php if($_SESSION['level']=='admin'):?>
                             <th width="50">AKSI</th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,12 +84,14 @@ function submit(x) {
                             <td><?= $row['nama_kategori']; ?></td>
                             <td><?= $row['keterangan']; ?></td>
                             <td><?= $row['stok']; ?></td>
+                            <?php if($_SESSION['level']=='admin'):?>
                             <td>
                                 <a href="#barangModal" data-toggle="modal" onclick="submit(<?=$row['idbarang'];?>)"
                                     class="btn btn-sm btn-circle btn-info"><i class="fas fa-edit"></i></a>
                                 <a href="<?=base_url();?>/process/barang.php?act=<?=encrypt('delete');?>&id=<?=encrypt($row['idbarang']);?>"
                                     class="btn btn-sm btn-circle btn-danger btn-hapus"><i class="fas fa-trash"></i></a>
                             </td>
+                            <?php endif; ?>
                         </tr>
                         <?php endwhile; ?>
                     </tbody>
@@ -140,6 +149,13 @@ function submit(x) {
                                 <label for="keterangan">Keterangan <span class="text-danger">*</span></label>
                                 <textarea name="keterangan" id="keterangan" cols="30" rows="5" class="form-control"
                                     required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12" id="stok-awal-wrapper">
+                            <div class="form-group">
+                                <label for="stok_awal">Stok Awal <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="stok_awal" name="stok_awal" min="0" value="0" required>
+                                <small class="form-text text-muted">Masukkan jumlah stok awal barang (opsional, default: 0)</small>
                             </div>
                         </div>
                     </div>

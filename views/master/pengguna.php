@@ -5,7 +5,7 @@ function submit(x) {
         $('[name="username"]').val("");
         $('[name="nama"]').val("");
         $('[name="no_hp"]').val("");
-        // $('[name="level"]').val("");
+        $('[name="level"]').val("staff");
         $('#penggunaModal .modal-title').html('Tambah Pengguna');
         $('[name="username"]').prop('readonly', false);
         $('[name="password"]').prop('required', true);
@@ -32,7 +32,7 @@ function submit(x) {
                 $('[name="username"]').val(data.username);
                 $('[name="nama"]').val(data.nama);
                 $('[name="no_hp"]').val(data.no_hp);
-                // $('[name="level"]').val(data.level);
+                $('[name="level"]').val(data.level);
             }
         });
     }
@@ -65,7 +65,7 @@ function submit(x) {
                             <th>NAMA LENGKAP</th>
                             <th>TELP</th>
                             <th>USERNAME</th>
-                            <!-- <th>LEVEL</th> -->
+                            <th>LEVEL</th>
                             <th width="50">AKSI</th>
                         </tr>
                     </thead>
@@ -80,6 +80,7 @@ function submit(x) {
                             <td><?= $row['nama']; ?></td>
                             <td><?= $row['no_hp']; ?></td>
                             <td><?= $row['username']; ?></td>
+                            <td><span class="badge badge-<?=$row['level']=='admin'?'primary':'success';?>"><?= strtoupper($row['level']); ?></span></td>
                             <td>
                                 <a href="#penggunaModal" data-toggle="modal" onclick="submit(<?=$row['id_users'];?>)"
                                     class="btn btn-sm btn-circle btn-info"><i class="fas fa-edit"></i></a>
@@ -139,15 +140,15 @@ function submit(x) {
                                     jika tidak ingin merubah password</small>
                             </div>
                         </div>
-                        <!-- <div class="col-md-6">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Level Akses</label>
                                 <select name="level" class="form-control" required>
-                                    <option value="user">Staff Pegawai</option>
+                                    <option value="staff">Staff</option>
                                     <option value="admin">Administrator</option>
                                 </select>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                     <hr class="sidebar-divider">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal"><i class="fas fa-times"></i>

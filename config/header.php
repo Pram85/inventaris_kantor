@@ -29,5 +29,13 @@
     <link href="<?=base_url();?>assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- Custom styles for Inventaris Dispenduk -->
     <link href="<?=base_url();?>assets/css/custom-style.css" rel="stylesheet">
-
+    <style>
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .topbar {
+            min-height: 80px;
+        }
+    </style>
 </head>
